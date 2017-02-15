@@ -10,7 +10,7 @@ var app = express();
 app.use('/',express.static('public'));
 
 require('./database');
-
+require('./seed');
 app.use('/api', router);
 
 
