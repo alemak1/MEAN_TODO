@@ -32,8 +32,23 @@ router.post('/todos',function(req,res){
 		res.json({'todo':todo, message:'Todo Created'});
 	});
 });
-// TODO: Add PUT route to update existing entries
 
+// TODO: Add PUT route to update existing entries
+router.put('/todos/:id',function(req,res){
+	var id = req.params.id;
+	var todo = req.body;
+
+	if(todo && todo._id !== id){
+		return res.status(500).json({err: "Ids don't match"});
+	}
+
+	Todo.findByIdAndUpdate(id, todo,{new:true},function(err,todo){
+		if(err){
+			return res.status(500).json({err:err.message});
+		}
+		res.json({'todo':todo, message:'Todo Updated'});
+	});
+});
 // TODO: Add a DELETE route to delete entries
 
 
